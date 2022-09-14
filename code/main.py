@@ -1,11 +1,11 @@
 from sr_74hc595_bitbang import SR
-from iel_display import display_digit
+from iel_display import display_digit, display_all
 from machine import Pin
 from secrets import secrets
 from get_data import get_time
 import network
 import time
-import wifimgr
+
 
 try:
   import usocket as socket
@@ -51,6 +51,7 @@ sr = SR(ser, srclk, rclk, srclr, oe)
 
 while True:
     
+    
     tm = get_time(URI + "/time/")
     print(tm)
     
@@ -68,6 +69,9 @@ while True:
     display_digit(d0,sr)
     
     time.sleep(30)
-        
+    
+    
+    #test display
+    #display_all(sr)
         
 

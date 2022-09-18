@@ -55,13 +55,13 @@ while True:
     if len(tm) == 3:
         tm = '0'+tm
     
-    else if len(tm) == 2:
+    elif len(tm) == 2:
         tm = '00' + tm
         
-    else if len(tm) ==1:
+    elif len(tm) ==1:
         tm = '000' + tm
     
-    else if len(tm) == 0:
+    elif len(tm) == 0:
         tm = '0000'
         
     else:

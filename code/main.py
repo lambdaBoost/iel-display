@@ -24,14 +24,10 @@ wlan.active(True)
 
 wlan.connect(ssid, pw)
 
-def light_onboard_led():
-    led = machine.Pin('LED', machine.Pin.OUT)
-    led.on();
 
 timeout = 10
 while timeout > 0:
     if wlan.status() >= 3:
-        light_onboard_led()
         break
     timeout -= 1
     print('Waiting for connection...')
@@ -55,8 +51,21 @@ while True:
     tm = get_time(URI + "/time/")
     print(tm)
     
-    if len(tm) < 4:
+    #quick fix for flawed api
+    if len(tm) == 3:
         tm = '0'+tm
+    
+    else if len(tm) == 2:
+        tm = '00' + tm
+        
+    else if len(tm) ==1:
+        tm = '000' + tm
+    
+    else if len(tm) == 0:
+        tm = '0000'
+        
+    else:
+        tm = tm
     
     d0 = tm[0]
     d1 = tm[1]

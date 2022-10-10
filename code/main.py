@@ -47,40 +47,44 @@ sr = SR(ser, srclk, rclk, srclr, oe)
 
 while True:
     
-    
-    tm = get_time(URI + "/time/")
-    print(tm)
-    
-    #quick fix for flawed api
-    if len(tm) == 3:
-        tm = '0'+tm
-    
-    elif len(tm) == 2:
-        tm = '00' + tm
+    try:
+        tm = get_time(URI + "/time/")
+        print(tm)
         
-    elif len(tm) ==1:
-        tm = '000' + tm
     
-    elif len(tm) == 0:
-        tm = '0000'
+    
+        #quick fix for flawed api
+        if len(tm) == 3:
+            tm = '0'+tm
         
-    else:
-        tm = tm
+        elif len(tm) == 2:
+            tm = '00' + tm
+            
+        elif len(tm) ==1:
+            tm = '000' + tm
+        
+        elif len(tm) == 0:
+            tm = '0000'
+            
+        else:
+            tm = tm
+        
+        d0 = tm[0]
+        d1 = tm[1]
+        d2 = tm[2]
+        d3 = tm[3]
+        
+        display_digit(d3,sr)
+        display_digit(d2,sr)
+        display_digit(d1,sr)
+        display_digit(d0,sr)
+        
+    except:      
     
-    d0 = tm[0]
-    d1 = tm[1]
-    d2 = tm[2]
-    d3 = tm[3]
-    
-    display_digit(d3,sr)
-    display_digit(d2,sr)
-    display_digit(d1,sr)
-    display_digit(d0,sr)
-    
+        display_digit('R',sr)
+        display_digit('R',sr)
+        display_digit('E',sr)
+        
     time.sleep(30)
-    
-    
-    #test display
-    #display_all(sr)
         
 

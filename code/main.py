@@ -16,7 +16,7 @@ except:
 ssid = secrets['ssid']
 pw = secrets['pw']
 
-URI = "http://192.168.1.215:8080"
+URI = "http://192.168.1.20:8080"
 
 
 wlan = network.WLAN(network.STA_IF)
@@ -48,43 +48,23 @@ sr = SR(ser, srclk, rclk, srclr, oe)
 while True:
     
     try:
-        tm = get_time(URI + "/time/")
-        print(tm)
+        tm = get_time(URI + "/time")
         
+        tm0 = tm[0]
+        tm1 = tm[1]
+        tm2 = tm[2]
+        tm3 = tm[3]
+        
+        display_digit(tm0, sr)
+        display_digit(tm1, sr)
+        display_digit(tm2, sr)
+        display_digit(tm3, sr)
+    
+    except:
+        display_digit('e', sr)
+        display_digit('r', sr)
+        display_digit('r', sr)
+    
+    sleep(60)
     
     
-        #quick fix for flawed api
-        if len(tm) == 3:
-            tm = '0'+tm
-        
-        elif len(tm) == 2:
-            tm = '00' + tm
-            
-        elif len(tm) ==1:
-            tm = '000' + tm
-        
-        elif len(tm) == 0:
-            tm = '0000'
-            
-        else:
-            tm = tm
-        
-        d0 = tm[0]
-        d1 = tm[1]
-        d2 = tm[2]
-        d3 = tm[3]
-        
-        display_digit(d3,sr)
-        display_digit(d2,sr)
-        display_digit(d1,sr)
-        display_digit(d0,sr)
-        
-    except:      
-    
-        display_digit('R',sr)
-        display_digit('R',sr)
-        display_digit('E',sr)
-        
-    time.sleep(30)
-        
-
